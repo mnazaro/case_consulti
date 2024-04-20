@@ -1,0 +1,25 @@
+{
+  "name": "case_consulti",
+  "version": "1.0.0",
+  "description": "Esse repositório foi criado para hospedar o projeto do case solicitado no processo seletivo da Consul TI",
+  "main": "index.js",
+  "scripts": {
+    "start": "prisma migrate deploy && ts-node-dev --poll -r tsconfig-paths/register --respawn src/index.ts",
+    "dev": "prisma migrate deploy && ts-node-dev --poll -r tsconfig-paths/register --exit-child --respawn --transpile-only src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "prisma": "^5.12.1",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.12.1",
+    "express": "^4.19.2"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  }
+}
