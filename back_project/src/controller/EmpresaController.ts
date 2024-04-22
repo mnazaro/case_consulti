@@ -21,10 +21,11 @@ export default class EmpresaController {
         return res.json(empresa)
     }
 
+    // Função para atualizar uma empresa: deve 
     async updateEmpresa(req: Request, res: Response){
-        const razao_social = req.params.razao_social
-        const { cnpj, nome_fantasia } = req.body
-        const empresa = await empresaModel.updateEmpresa(razao_social, cnpj, nome_fantasia)
+        const id = parseInt(req.params.id)
+        const { razao_social, cnpj, nome_fantasia } = req.body
+        const empresa = await empresaModel.updateEmpresa(id, razao_social, cnpj, nome_fantasia)
         return res.json(empresa)
     }
 

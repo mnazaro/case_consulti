@@ -25,14 +25,15 @@ export default class EmpresaModel {
         })
     }
 
-    async updateEmpresa(razao_social: string, cnpj: string, nome_fantasia?: string){
+    async updateEmpresa(id: number, razao_social: string, cnpj: string, nome_fantasia: string){
         return await prisma.empresa.update({
             where: {
-                razao_social: razao_social
+               id: id 
             },
             data: {
+                razao_social: razao_social,
                 cnpj: cnpj,
-                nome_fantasia: nome_fantasia || null
+                nome_fantasia: nome_fantasia
             }
         })
     }
