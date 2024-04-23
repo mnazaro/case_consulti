@@ -7,14 +7,11 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
 app.use('/empresa', empresaRoutes);
 app.use('/setor', setorRoutes);
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
-});
+app.listen(5000, '0.0.0.0', () => {
+    console.log('Server is running on port 5000');
+})
 
 
