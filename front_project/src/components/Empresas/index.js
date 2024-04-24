@@ -22,15 +22,17 @@ function Empresas() {
     const [setores, setSetores] = React.useState([]);
     const [selectedSetores, setSelectedSetores] = React.useState([]);
 
+    const URL = 'http://localhost:5000';
+
     async function fetchData() {
-        await axios.get('http://localhost:5000/empresa').then((response) => {
+        await axios.get(URL + '/empresa').then((response) => {
             setData(response.data);
             console.log(response.data);
         }).catch((error) => {
             console.log(error);
         });
 
-        await axios.get('http://localhost:5000/setor').then((response) => {
+        await axios.get(URL + '/setor').then((response) => {
             setSetores(response.data);
         }).catch((error) => {
             console.log(error);
@@ -59,27 +61,28 @@ function Empresas() {
             return;
         }
         if (isEditing) {
-            axios.put(`http://localhost:5000/empresa/${selectedEmpresa.id}`, {
+            axios.put(URL + `/empresa/${selectedEmpresa.id}`, {
                 razao_social: razao_social,
                 cnpj: cnpj.replace(/\D/g, ''),
-                nome_fantasia: nome_fantasia
+                nome_fantasia: nome_fantasia,
+                setor_Ids: selectedSetores
             }).then((response) => {
                 setModalOpen(false);
                 setRazaoSocial('');
                 setCnpj('');
                 setNomefantasia('');
-                setSetores([]);
+                setSelectedSetores([]);
                 setIsEditing(false);
-                setData(data.map(empresa => empresa.id === selectedEmpresa.id ? response.data : empresa));
+                fetchData();
             }).catch((error) => {
                 console.log(error);
             });
         } else {
-            axios.post('http://localhost:5000/empresa', {
+            axios.post(URL + '/empresa', {
                 razao_social: razao_social,
                 cnpj: cnpj.replace(/\D/g, ''),
                 nome_fantasia: nome_fantasia,
-                setores: selectedSetores
+                setor_Ids: selectedSetores
             }).then((response) => {
                 console.log(response.data);
                 setModalOpen(false);
@@ -87,7 +90,7 @@ function Empresas() {
                 setCnpj('');
                 setNomefantasia('');
                 setSelectedSetores([]);
-                setData([...data, response.data]);
+                fetchData();
             }).catch((error) => {
                 console.log(error);
             });
@@ -98,15 +101,15 @@ function Empresas() {
         setRazaoSocial(empresa.razao_social);
         setCnpj(empresa.cnpj);
         setNomefantasia(empresa.nome_fantasia);
+        setSelectedSetores(empresa.setores);
         setIsEditing(true);
         setEditModalOpen(true);
     }
 
     const handleDelete = (empresa) => {
         if (window.confirm(`Deseja realmente excluir a empresa ${empresa.razao_social}?`)) {
-            axios.delete(`http://localhost:5000/empresa/${empresa.id}`).then((response) => {
-                const newEmpresas = data.filter((e) => e.id !== empresa.id);
-                setData(newEmpresas);
+            axios.delete(URL + `/empresa/${empresa.id}`).then((response) => {
+                fetchData();
             }).catch((error) => {
                 console.log(error);
             });
@@ -143,32 +146,20 @@ function Empresas() {
                         <input type="text" id="nome_fantasia" name="nome_fantasia" value={nome_fantasia} onChange={(e) => setNomefantasia(e.target.value)} />
 
                         <label htmlFor="setores">Setores</label>
-                        {/* <select multiple={true} value={setores} onChange={(e) => {
-                            const selectedSetorIds = Array.from(e.target.selectedOptions, option => Number(option.value));
-                            setSetores(selectedSetorIds);
-                            console.log(setores);
-                        }}>
-                            {setores.map((setor) => (
-                                <option key={setor.id} value={setor.id}>{setor.descricao}</option>
-                            ))}
-                        </select> */}
                         <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '30vw' }} >
                             {setores.map((setor) => (
                                 <div key={setor.id} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '15vw' }} >
                                     <input type="checkbox" style={{ width: '2vh', flexWrap: 'wrap' }} id={setor.id} value={setor.id} onChange={(e) => {
                                         if (e.target.checked) {
-                                            setSelectedSetores([...selectedSetores, setor]);
+                                            setSelectedSetores([...selectedSetores, setor.id]);
                                         } else {
-                                            setSelectedSetores(selectedSetores.filter((s) => s.id !== setor.id));
+                                            setSelectedSetores(selectedSetores.filter((id) => id !== setor.id));
                                         }
                                     }} />
                                     <label htmlFor={setor.id}>{setor.descricao}</label>
                                 </div>
                             ))}
                         </div>
-
-
-
                         <button type="submit" style={{ cursor: 'pointer' }} onClick={(e) => {
                             e.preventDefault();
                             handleSubmit(e);
@@ -180,7 +171,7 @@ function Empresas() {
                             setRazaoSocial('');
                             setCnpj('');
                             setNomefantasia('');
-                            setSetores([]);
+                            setSelectedSetores([]);
                         }}>Cancelar</button>
                     </form>
                 </Modal>
@@ -198,14 +189,20 @@ function Empresas() {
                         <input type="text" id="nome_fantasia" name="nome_fantasia" value={nome_fantasia} onChange={(e) => setNomefantasia(e.target.value)} />
 
                         <label htmlFor="setores">Setores</label>
-                        <select multiple={true} value={setores} onChange={(e) => {
-                            const selectedSetorIds = Array.from(e.target.selectedOptions, option => Number(option.value));
-                            setSetores(selectedSetorIds);
-                        }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '30vw' }} >
                             {setores.map((setor) => (
-                                <option key={setor.id} value={setor.id}>{setor.descricao}</option>
+                                <div key={setor.id} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '15vw' }} >
+                                    <input type="checkbox" style={{ width: '2vh', flexWrap: 'wrap' }} id={setor.id} value={setor.id} checked={selectedSetores.includes(setor.id)} onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setSelectedSetores([...selectedSetores, setor.id]);
+                                        } else {
+                                            setSelectedSetores(selectedSetores.filter((id) => id !== setor.id));
+                                        }
+                                    }} />
+                                    <label htmlFor={setor.id}>{setor.descricao}</label>
+                                </div>
                             ))}
-                        </select>
+                        </div>
 
                         <button type="submit" style={{ cursor: 'pointer' }} onClick={(e) => {
                             e.preventDefault();
@@ -218,7 +215,7 @@ function Empresas() {
                             setRazaoSocial('');
                             setCnpj('');
                             setNomefantasia('');
-                            setSetores([]);
+                            setSelectedSetores([]);
                             setIsEditing(false);
                         }}>Cancelar</button>
                     </form>

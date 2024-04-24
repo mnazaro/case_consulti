@@ -6,7 +6,6 @@ import axios from "axios";
 import edit from "../../assets/edit.svg";
 import deleteIcon from "../../assets/delete_icon.svg";
 
-
 function Setores() {
     const [setores, setSetores] = React.useState([]);
     const [selectedSetor, setSelectedSetor] = React.useState(null);
@@ -15,8 +14,11 @@ function Setores() {
     const [isEditing, setIsEditing] = React.useState(false);
     const [descricao, setDescricao] = React.useState('');
 
+
+    const URL = 'http://localhost:5000';
+
     async function fetchData() {
-        await axios.get('http://localhost:5000/setor').then((response) => {
+        await axios.get(URL + '/setor').then((response) => {
             setSetores(response.data);
         }).catch((error) => {
             console.log(error);
@@ -31,7 +33,7 @@ function Setores() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (isEditing) {
-            axios.put(`http://localhost:5000/setor/${selectedSetor.id}`, {
+            axios.put(URL + `/setor/${selectedSetor.id}`, {
                 descricao: descricao
             }).then((response) => {
                 setModalOpen(false);
@@ -42,7 +44,7 @@ function Setores() {
                 console.log(error);
             });
         } else {
-            axios.post('http://localhost:5000/setor', {
+            axios.post(URL + '/setor', {
                 descricao: descricao
             }).then((response) => {
                 setModalOpen(false);
@@ -65,7 +67,7 @@ function Setores() {
     //Deletar Setor
     const handleDelete = (setor) => {
         if (window.confirm(`Deseja realmente excluir o setor ${setor.descricao}?`)) {
-            axios.delete(`http://localhost:5000/setor/${setor.id}`).then((response) => {
+            axios.delete(URL + `/setor/${setor.id}`).then((response) => {
             fetchData();
         }).catch((error) => {
             console.log(error);
@@ -79,8 +81,8 @@ function Setores() {
             <div className='area'>
                 {setores.sort((a, b) => a.descricao.localeCompare(b.descricao)).map((setor) => (
                     <div className="card" key={setor.id} onClick={() => setSelectedSetor(setor)}>
-                        <p>{setor.descricao}</p>
-                        {/* <p>Empresas relacionadas: {setor.empresas.length}</p> */}
+                        <h3>{setor.descricao}</h3>
+                        <p>Empresas relacionadas: {setor.empresas.length}</p>
                         <div className="options">
                             <img src={edit} alt="Editar" style={{ cursor: 'pointer' }} onClick={() => handleEdit(setor)} />
                             <img src={deleteIcon} alt="Deletar" style={{ cursor: 'pointer' }} onClick={() => handleDelete(setor)} />

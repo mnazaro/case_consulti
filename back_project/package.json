@@ -4,9 +4,8 @@
     "description": "Esse repositório foi criado para hospedar o projeto do case solicitado no processo seletivo da Consul TI",
     "main": "index.js",
     "scripts": {
-        "start": "prisma migrate deploy && node dist/index.ts",
-        "dev": "prisma migrate deploy && ts-node src/index.ts",
-        "build": "tsup src"
+        "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+        "start": "prisma migrate deploy && ts-node-dev --poll -r tsconfig-paths/register --respawn src/index.ts"
     },
     "keywords": [],
     "author": "",

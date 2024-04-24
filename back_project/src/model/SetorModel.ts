@@ -4,13 +4,20 @@ const prisma = new PrismaClient()
 
 export default class SetorModel {
     async getSetores(){
-        return await prisma.setor.findMany()
+        return await prisma.setor.findMany({
+            include: {
+                empresas: true
+            }
+        })
     }
 
     async getSetorById(id: number){
         return await prisma.setor.findUnique({
             where: {
                 id: id
+            },
+            include: {
+                empresas: true
             }
         })
     }
@@ -30,6 +37,9 @@ export default class SetorModel {
             },
             data: {
                 descricao: descricao
+            },
+            include: {
+                empresas: true
             }
         })
     }
@@ -38,6 +48,9 @@ export default class SetorModel {
         return await prisma.setor.delete({
             where: {
                 id: id
+            },
+            include: {
+                empresas: true
             }
         })
     }

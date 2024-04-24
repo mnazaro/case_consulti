@@ -4,7 +4,11 @@ const prisma = new PrismaClient()
 
 export default class EmpresaModel {
     async getEmpresas(){
-        return await prisma.empresa.findMany();
+        return await prisma.empresa.findMany({
+            include: {
+                setores: true
+            }
+        })
     }
 
 
@@ -12,6 +16,9 @@ export default class EmpresaModel {
         return await prisma.empresa.findUnique({
             where: {
                 razao_social: razao_social
+            },
+            include: {
+                setores: true
             }
         })
     }
@@ -57,6 +64,9 @@ export default class EmpresaModel {
         return await prisma.empresa.delete({
             where: {
                 id: id
+            },
+            include: {
+                setores: true
             }
         })
     }
