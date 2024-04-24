@@ -13,9 +13,10 @@ function Setores() {
     const [isEditModalOpen, setEditModalOpen] = React.useState(false);
     const [isEditing, setIsEditing] = React.useState(false);
     const [descricao, setDescricao] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(true);
 
 
-    const URL = 'http://localhost:5000';
+    const URL = 'https://case-consulti.onrender.com';
 
     async function fetchData() {
         await axios.get(URL + '/setor').then((response) => {
@@ -23,6 +24,7 @@ function Setores() {
         }).catch((error) => {
             console.log(error);
         });
+        setIsLoading(false);
     }
 
     React.useEffect(() => {
@@ -79,6 +81,7 @@ function Setores() {
         <div className='setores'>
             <h1>Setores</h1>
             <div className='area'>
+                {isLoading && <div>Carregando...</div>}
                 {setores.sort((a, b) => a.descricao.localeCompare(b.descricao)).map((setor) => (
                     <div className="card" key={setor.id} onClick={() => setSelectedSetor(setor)}>
                         <h3>{setor.descricao}</h3>

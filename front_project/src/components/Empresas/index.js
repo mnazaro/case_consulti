@@ -21,8 +21,9 @@ function Empresas() {
     const [searchValue, setSearchValue] = React.useState('');
     const [setores, setSetores] = React.useState([]);
     const [selectedSetores, setSelectedSetores] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
 
-    const URL = 'http://localhost:5000';
+    const URL = 'https://case-consulti.onrender.com';
 
     async function fetchData() {
         await axios.get(URL + '/empresa').then((response) => {
@@ -37,6 +38,7 @@ function Empresas() {
         }).catch((error) => {
             console.log(error);
         });
+        setIsLoading(false);
     }
 
     React.useEffect(() => {
@@ -232,9 +234,10 @@ function Empresas() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.sort((a, b) => a.id - b.id).map((empresa) => (
+                        {isLoading && <tr><td colSpan="6">Carregando dados do servidor...</td></tr>}
+                        {data.sort((a, b) => a.id - b.id).map((empresa, index) => (
                             <tr key={empresa.id} onClick={() => setSelectedEmpresa(empresa)}>
-                                <td>{empresa.id}</td>
+                                <td>{index + 1}</td>
                                 <td>{empresa.razao_social}</td>
                                 <td>{empresa.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')}</td>
                                 <td>{empresa.nome_fantasia}</td>
