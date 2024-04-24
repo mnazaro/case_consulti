@@ -16,22 +16,22 @@ export default class EmpresaController {
     }
 
     async createEmpresa(req: Request, res: Response){
-        const { razao_social, cnpj, nome_fantasia } = req.body
-        const empresa = await empresaModel.createEmpresa(razao_social, cnpj, nome_fantasia)
+        const { razao_social, cnpj, nome_fantasia, setor_Ids } = req.body
+        const empresa = await empresaModel.createEmpresa(razao_social, cnpj, nome_fantasia, setor_Ids)
         return res.json(empresa)
     }
 
     // Função para atualizar uma empresa: deve 
     async updateEmpresa(req: Request, res: Response){
         const id = parseInt(req.params.id)
-        const { razao_social, cnpj, nome_fantasia } = req.body
-        const empresa = await empresaModel.updateEmpresa(id, razao_social, cnpj, nome_fantasia)
+        const { razao_social, cnpj, nome_fantasia, setor_Ids } = req.body
+        const empresa = await empresaModel.updateEmpresa(id, razao_social, cnpj, nome_fantasia, setor_Ids)
         return res.json(empresa)
     }
 
     async deleteEmpresa(req: Request, res: Response){
-        const razao_social = req.params.razao_social
-        const empresa = await empresaModel.deleteEmpresa(razao_social)
+        const id = parseInt(req.params.id)
+        const empresa = await empresaModel.deleteEmpresa(id)
         return res.json(empresa)
     }
 

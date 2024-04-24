@@ -11,6 +11,6 @@ app.use('/setor', setorRoutes);
 app.listen({
   host: '0.0.0.0',
   port: process.env.PORT ? Number(process.env.PORT) : 3333,
-}).then(() => {
-  console.log('HTTP Server Running')
-})
+}, () => {
+  console.log('HTTP Server Running');
+});

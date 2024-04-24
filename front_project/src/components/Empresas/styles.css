@@ -123,3 +123,7 @@ form button{
     background-color: #047FAB;
     color: #ffffff;
 }
+
+form button:hover{
+    cursor: pointer;
+}
