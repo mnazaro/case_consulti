@@ -4,7 +4,7 @@
     "description": "Esse repositório foi criado para hospedar o projeto do case solicitado no processo seletivo da Consul TI",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node --transpile-only --ignore-watch node_modules src/index.ts",
+        "dev": "ts-node --transpile-only --ignore-watch node_modules src/server.ts",
         "build": "tsup src",
         "start": "node dist/server.js"
     },
