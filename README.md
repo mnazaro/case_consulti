@@ -35,6 +35,6 @@ Optei por utilizar Axios no frontend para facilitar a comunicação com o backen
 
 ## Acesso ao Projeto
 
-[![Preview do Site](front_project/src/assets/preview.png)](link-para-o-site)
+[![Preview do Site](front_project/src/assets/preview.png)](https://mnazaro.github.io/case_consulti/)
 
 
