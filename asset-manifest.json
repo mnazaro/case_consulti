@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/case_consulti/static/css/main.91d89bcb.css",
-    "main.js": "/case_consulti/static/js/main.a8e5dccf.js",
+    "main.js": "/case_consulti/static/js/main.07e603cc.js",
     "static/media/consulti_logo.svg": "/case_consulti/static/media/consulti_logo.cf4fff909db06db286d2d5c63da5d0f0.svg",
     "static/media/setores.svg": "/case_consulti/static/media/setores.bc415554ceb7379b8e29f641c00f77b8.svg",
     "static/media/add_icon.svg": "/case_consulti/static/media/add_icon.2dd9b1083c3b968ff54e44376d4f7214.svg",
@@ -12,10 +12,10 @@
     "static/media/empresas.svg": "/case_consulti/static/media/empresas.64ca2a9c5ee3aa076951ffba176dd6de.svg",
     "index.html": "/case_consulti/index.html",
     "main.91d89bcb.css.map": "/case_consulti/static/css/main.91d89bcb.css.map",
-    "main.a8e5dccf.js.map": "/case_consulti/static/js/main.a8e5dccf.js.map"
+    "main.07e603cc.js.map": "/case_consulti/static/js/main.07e603cc.js.map"
   },
   "entrypoints": [
     "static/css/main.91d89bcb.css",
-    "static/js/main.a8e5dccf.js"
+    "static/js/main.07e603cc.js"
   ]
 }
