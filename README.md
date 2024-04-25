@@ -1,3 +1,4 @@
+![Logo da Consul TI](front_project/public/consulti.svg)
 # ConsulTI - Case
 
 ## Descrição
