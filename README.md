@@ -1,5 +1,9 @@
-![Logo da Consul TI](front_project/public/consulti.svg)
-# ConsulTI - Case
+<p align="center">
+  <img src="front_project/public/consulti.svg" alt="Logo da Consul TI" />
+</p>
+
+<h1 align="center">Consul TI | CASE</h1>
+
 
 ## Descrição
 
@@ -31,5 +35,6 @@ Optei por utilizar Axios no frontend para facilitar a comunicação com o backen
 
 ## Acesso ao Projeto
 
-  [Clique aqui para acessar](https://mnazaro.github.io/case_consulti/)
+[![Preview do Site](front_project/src/assets/preview.png)](link-para-o-site)
+
 
